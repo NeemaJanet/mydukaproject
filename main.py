@@ -23,6 +23,6 @@ def products():
     cur.execute("SELECT * from products;")
     rows = cur.fetchall()
     print (rows)
-    return render_template('products.html', rows=rows)
+    return render_template('index2.html', rows=rows)
 
 app.run()
