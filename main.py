@@ -1,12 +1,28 @@
-from flask import Flask,render_template
-var = Flask(__name__)
-@var.route("/")
+from flask import Flask, render_template
+import psycopg2
+
+app = Flask(__name__)
+
+try:
+    conn = psycopg2.connect("dbname='myduka' user='postgres' host='localhost' port='5433' password='softwaredeveloper'")
+    print('Connected successfully')
+except Exception as e:
+    print ("I am unable to connect to the database", e)
+
+@app.route('/')
 def home():
+    username='Neema Janet'
+    return render_template('index.html', username=username)
 
-    return render_template("index.html")
 
-@var.route("/products")
+@app.route('/products')
 def products():
-    return render_template("index2.html")
+    
 
-var.run()
+    cur = conn.cursor()
+    cur.execute("SELECT * from products;")
+    rows = cur.fetchall()
+    print (rows)
+    return render_template('products.html', rows=rows)
+
+app.run()
