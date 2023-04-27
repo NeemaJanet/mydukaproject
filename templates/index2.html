@@ -110,18 +110,15 @@
           </tr>
         </thead>
         <tbody>
+          {% for i in rows %}
           <tr>
-            <th scope="row">1</th>
-            <td>Bag(Laptop)</td>
-            <td>2000.0</td>
-            <td>2500</td>
-            <td>3</td>
-            <td>product</td>
-            <td><button class="btn btn-warning"><i class="bi bi-coin" value="sale"></i></button></td>
-            <td><button class="btn btn-primary"><i class="bi bi-pencil-square" value="edit"></i></button></td>
-            <td><button class="btn btn-danger"><i class="bi bi-trash3" value="delete"></i></button></td>
+              <td>{{ i[0] }}</td>
+              <td>{{ i[1] }}</td>
+               <td>{{ i[2] }}</td>
+               <td>{{ i[3] }}</td>
+               <td>{{ i[4] }}</td>
           </tr>
-        
+          {% endfor %}
         </tbody>
       </table>
       <span class="d-flex justify-content-between"><p >Showing 1 - 7 of 7 entries</p>
