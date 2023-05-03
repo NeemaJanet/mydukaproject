@@ -1,18 +1,18 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request, redirect
 import psycopg2
 
 app = Flask(__name__)
 
 try:
-    conn = psycopg2.connect("dbname='myduka' user='postgres' host='localhost' port='5433' password='softwaredeveloper'")
-    print('Connected successfully')
+    conn = psycopg2.connect("dbname='myduka' user='postgres' host='localhost' port='5433' password='njokin2023#'")
+    print('connected successfuly')
 except Exception as e:
     print ("I am unable to connect to the database", e)
 
 @app.route('/')
 def home():
-    username='Neema Janet'
-    return render_template('index.html', username=username)
+    
+    return render_template('index.html')
 
 
 @app.route('/products')
@@ -23,6 +23,27 @@ def products():
     cur.execute("SELECT * from products;")
     rows = cur.fetchall()
     print (rows)
-    return render_template('products.html', rows=rows)
+    return render_template('index2.html', rows=rows)
 
-app.run()
+@app.route('/sales')
+def sales():
+    
+
+    cur = conn.cursor()
+    cur.execute("SELECT * from sales;")
+    row = cur.fetchall()
+    print (row)
+    return render_template('sales.html', row=row)
+
+@app.route('/save-product', methods=['POST'])
+def save_product():
+    name=request.form['name']
+    bp=request.form['bp']
+    sp=request.form['sp']
+    quantity=request.form['quantity']
+    print(name, bp, sp, quantity)
+    cur = conn.cursor()
+    cur.execute("INSERT INTO products(name, buying_price, selling_price, quantity)values(%s, %s, %s, %s)",(name, bp, sp, quantity))
+    conn.commit()
+
+    return redirect("/products")
