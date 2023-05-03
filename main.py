@@ -23,27 +23,6 @@ def products():
     cur.execute("SELECT * from products;")
     rows = cur.fetchall()
     print (rows)
-    return render_template('index2.html', rows=rows)
+    return render_template('products.html', rows=rows)
 
-@app.route('/sales')
-def sales():
-    
-
-    cur = conn.cursor()
-    cur.execute("SELECT * from sales;")
-    row = cur.fetchall()
-    print (row)
-    return render_template('sales.html', row=row)
-
-@app.route('/save-product', methods=['POST'])
-def save_product():
-    name=request.form['name']
-    bp=request.form['bp']
-    sp=request.form['sp']
-    quantity=request.form['quantity']
-    print(name, bp, sp, quantity)
-    cur = conn.cursor()
-    cur.execute("INSERT INTO products(name, buying_price, selling_price, quantity)values(%s, %s, %s, %s)",(name, bp, sp, quantity))
-    conn.commit()
-
-    return redirect("/products")
+app.run()
