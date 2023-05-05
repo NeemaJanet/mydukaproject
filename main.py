@@ -47,3 +47,17 @@ def save_product():
     conn.commit()
 
     return redirect("/products")
+
+@app.route('/save-sales',methods=['POST'])
+def save_sales():
+    pid=request.form['pid']
+    quantity=request.form['quantity']
+    print(pid,quantity)
+    cur=conn.cursor()
+    cur.execute("INSERT INTO sales(pid,quantity,created_at)VALUES (%s, %s,%s)",(pid,quantity,"now()"))
+    conn.commit()
+
+    return redirect("/sales")
+
+app.run(debug=True)
+
