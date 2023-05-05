@@ -33,7 +33,7 @@ def sales():
     cur.execute("SELECT * from sales;")
     row = cur.fetchall()
     print (row)
-    return render_template('sales.html', row=row)
+    return render_template('index2.html', row=row)
 
 @app.route('/save-product', methods=['POST'])
 def save_product():
